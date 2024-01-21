@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>WLVerse</title>
+    <meta name="description" content="Pushing limits, chasing dreams">
+    <meta name="keywords" content="indie, game, studio, development, programming, c, cpp, c++, custom, engine, ycengine">
+
+    <meta property="og:title" content="WLVerse">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Pushing limits, chasing dreams">
+    <meta property="og:url" content="https://wlverse.web.app" id="J_PWEURL">
+    <meta property="og:image" content="https://wlverse.web.app/content/wlverse_logo_white.png">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://wlverse.web.app/assets/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://wlverse.web.app/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://wlverse.web.app/assets/favicon/favicon-16x16.png">
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+      ::-webkit-scrollbar, ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb {
+        display: none;
+      }
+
+      * {
+        transition: 0.2s;
+      }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Merriweather', serif;
+        font-size: 16px;
+        color: #ffffff;
+        scroll-behavior: smooth;
+
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      a {
+        all: unset;
+        padding: 2svh 3svh;
+        margin: 2svh;
+      }
+      a:hover {
+        text-decoration: underline;
+        cursor: pointer;
+        text-shadow: 0px 1px 20px #ffffff88;
+      }
+
+      .hero-background {
+        display: inline;
+        position: fixed;
+        height: 100%;
+        width: 100svw;
+        z-index: -10;
+        overflow: hidden;
+      }
+
+      .hero-video {
+        display: inline;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        background: #000;
+        filter: blur(8px) brightness(35%);
+      }
+
+      .hero-content {
+        padding: 20px;
+        height: calc(100svh - 4svw - 40px);
+        width: calc(100svw - 4svw - 40px);
+        border: 2svw solid #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .hero-logo-container img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-height: 20svh;
+      }
+
+      .hero-tagline {
+        padding-top: 4svh;
+        padding-bottom: 6svh;
+        font-size: 4svh;
+        text-shadow: 0px 1px 10px #000000;
+      }
+
+      .hero-button-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      .hero-button {
+        margin: 1svh 2svh;
+        padding: 2svh 4svh;
+        font-size: 2svh;
+        text-shadow: 0px 1px 10px #000000;
+        border: 2px solid #ffffff;
+        border-radius: 12px;
+      }
+      .hero-button:hover {
+        background-color: #6442bf88;
+        text-shadow: 0px 1px 20px #ffffff88;
+        box-shadow: 0px 0px 35px #6442bf;
+        cursor: pointer;
+      }
+
+      .content-container {
+        min-height: 10svh;
+        width: 100svw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .content-container.light {
+        background-color: #ffffff;
+      }
+      .content-container.accent {
+        background-color: #6442bf;
+      }
+      .content-container.dark {
+        background-color: #112233;
+      }
+
+      .content-container.padding {
+        padding: 10svh 0;
+      }
+
+      .content-group-header {
+        padding: 10svh 0;
+        max-width: 50svw;
+        font-size: 5svh;
+        font-weight: bold;
+        text-align: center;
+        text-shadow: 0px 0px 10px #000000;
+      }
+
+      .content-group {
+        padding: 7svh 0;
+        max-width: 60svw;
+      }
+      
+      .content-header {
+        padding-bottom: 3svh;
+        font-size: 5svh;
+        font-weight: bold;
+        text-align: center;
+        text-shadow: 0px 1px 10px #000000;
+        border-bottom: 1px solid #ffffff88;
+      }
+
+      .content-text {
+        padding-top: 3svh;
+        font-size: 3svh;
+        line-height: 5svh;
+        text-align: justify;
+        text-shadow: 0px 1px 10px #000000;
+      }
+
+      .content-button {
+        margin-bottom: 8svh;
+        padding: 2svh 4svh;
+        font-size: 3svh;
+        font-weight: bold;
+        text-shadow: 0px 1px 10px #000000;
+      }
+      .content-button:hover {
+        cursor: pointer;
+        text-shadow: 0px 1px 20px #ffffff88;
+      }
+
+      .content-grid-container {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        width: 70svw;
+      }
+
+      .content-grid-element {
+        flex-basis: 33%;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .content-image {
+        margin: 6svh;
+        overflow: hidden;
+        box-shadow: 0px 1px 20px #000000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .content-image img {
+        display: block;
+      }
+      .content-image:hover {
+        box-shadow: 0px 1px 35px #000000;
+      }
+
+      .footer-text {
+        padding-bottom: 2svh 0;
+        max-width: 80svw;
+        font-size: 1.5svh;
+        font-weight: bold;
+        color: #000000;
+        text-align: center;
+      }
+
+    </style>
+  </head>
+
+  <body>
+
+    <!-- hero -->
+    <div class="hero-background">
+      <video class="hero-video" poster="https://wlverse.web.app/content/trailer.png" autoplay loop muted>
+        <source src="https://wlverse.web.app/content/trailer.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-content">
+      <div class="hero-logo-container">
+        <img height="160" src="https://wlverse.web.app/content/wlverse_logo_white.png"></img>
+      </div>
+      <div class="hero-tagline">Pushing limits, chasing dreams.</div>
+      <div class="hero-button-container">
+        <a class="hero-button" href="#games">Play our games</a>
+        <a class="hero-button" href="#about">Hear our story</a>
+      </div>
+    </div>
+
+    <!-- about -->
+    <div class="content-container dark padding">
+      <div id="about" class="content-group">
+        <div class="content-header">Vision</div>
+        <div class="content-text">Our vision is to relentlessly push the limits of what is achievable within our constraints. We believe that challenges inspire innovation, forging a path where every project becomes a testament to the extraordinary potential within our reach.</div>
+      </div>
+      <div class="content-group">
+        <div class="content-header">Mission</div>
+        <div class="content-text">Our mission is to create games that transcend expectations. We craft games that inspire, prioritizing both the excellence of our creations and the joy found in every step of the development process. Fueled by innovation and collaboration, we redefine what is possible, delivering exceptional experiences while cultivating a culture of accomplishment and unity.</div>
+      </div>
+    </div>
+
+    <!-- games -->
+    <div id="games" class="content-container accent padding">
+      <div class="content-header">Games</div>
+      <div class="content-grid-container">
+
+        <div class="content-grid-element">
+          <div class="content-image">
+            <img width="288" height="480" src="https://wlverse.web.app/content/2048thegame.png"></img>
+          </div>
+          <a class="content-button">2048: The Game</a>
+        </div>
+        
+        <div class="content-grid-element">
+          <div class="content-image">
+            <img width="288" height="480" src="https://wlverse.web.app/content/theworldofrgb.png"></img>
+          </div>
+          <a class="content-button" href="https://portylstudios.com/projects/theworldofrgb">The World of RGB</a>
+        </div>
+
+        <div class="content-grid-element">
+          <div class="content-image">
+            <img width="288" height="480" src="https://wlverse.web.app/content/comingsoon.png"></img>
+          </div>
+          <a class="content-button">GAM 150 Project</a>
+        </div>
+        
+        <div class="content-grid-element">
+          <div class="content-image">
+            <img width="288" height="480" src="https://wlverse.web.app/content/comingsoon.png"></img>
+          </div>
+          <a class="content-button">GAM 200 Project</a>
+        </div>
+        
+        <div class="content-grid-element">
+          <div class="content-image">
+            <img width="288" height="480" src="https://wlverse.web.app/content/comingsoon.png"></img>
+          </div>
+          <a class="content-button">GAM 300 Project</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- contact -->
+    <div id="contact" class="content-container dark padding">
+      <div class="content-header">Contact</div>
+      <a class="content-text" href="https://portylstudios.com/contact" target="_blank">
+        contact@portylstudios.com
+      </a>
+    </div>
+
+    <!-- footer -->
+    <div class="content-container light">
+      <div class="footer-text">© 2024 Portyl Studios</div>
+      <div class="footer-text">All copyrights and trademarks referenced herein are the properties of their respective owners.</div>
+    </div>
+
+  </body>
+
+  <script>
+    // functions
+    function ReadFromURL() {
+      // get full URL
+      readSearchParams = new URLSearchParams(document.location.search)
+      // get query strings
+      readMainArchetypeString = readSearchParams.get("main")
+      readSubArchetypeString = readSearchParams.get("sub")
+      readDataString = readSearchParams.get("data")
+
+      // default values
+      if (readMainArchetypeString == null) {
+        readMainArchetypeString = "Gunslinger"
+      }
+      if (readSubArchetypeString == null) {
+        readSubArchetypeString = "None"
+      }
+      if (readDataString == null) {
+        readDataString = "0000000000000000000000000000000"
+      }
+      
+      // convert archetype name to trait
+      extraArchetypeTraits.forEach((archetype, index) => {
+        if ("None" == readSubArchetypeString) {
+          subArchetypeTrait = "none"
+        }
+
+        if (archetype.name == readMainArchetypeString) {
+          mainArchetypeTrait = archetype.mainTrait
+        }
+        else if (archetype.name == readSubArchetypeString) {
+          subArchetypeTrait = archetype.mainTrait
+        }
+      })
+
+      // turns the a data string into userdata
+        userdata = []
+      readDataString.split('').forEach((traitValue, index) => {
+        if (traitValue == "X") {
+          // special case for 10 so it shows up as one character
+          userdata.push({trait:traitList[index], value:10})
+        } else {
+          userdata.push({trait:traitList[index], value:traitValue})
+        }
+      })
+
+      // allocate based on userdata
+      userdata.forEach(data => {
+        Allocate(data.trait, data.value, true)
+      })
+      
+      // allocate archetypes
+      document.getElementById("main-archetype").value = mainArchetypeTrait
+      document.getElementById("sub-archetype").value = subArchetypeTrait
+      SelectArchetype("main-archetype")
+      SelectArchetype("sub-archetype")
+    }
+
+    function WriteToURL() {
+      writeMainArchetypeString = "None"
+      writeSubArchetypeString = "None"
+
+      // get base URL
+      baseURL = new URL(document.location)
+
+      // convert archetype trait to name
+      extraArchetypeTraits.forEach((archetype, index) => {
+        if ("none" == subArchetypeTrait) {
+          writeSubArchetypeString = "None"
+        }
+
+        if (archetype.mainTrait == mainArchetypeTrait) {
+          writeMainArchetypeString = archetype.name
+        }
+        else if (archetype.mainTrait == subArchetypeTrait) {
+          writeSubArchetypeString = archetype.name
+        }
+      })
+
+      // turns the userdata into a data string
+      writeDataString = ""
+      traitList.forEach((trait, index) => {
+        if (userdata[index].trait == trait) {
+          if (userdata[index].value == 10) {
+            // special case for 10 so it shows up as one character
+            writeDataString += "X"
+          } else {
+            writeDataString += userdata[index].value
+          }
+        }
+      })
+
+      // write ?main=mainArchetypeString&sub=subArchetypeString&data=writeDataString to base url
+      writeSearchParams = new URLSearchParams([
+        ["main", writeMainArchetypeString],
+        ["sub", writeSubArchetypeString],
+        ["data", writeDataString]
+      ])
+      newURL = `${baseURL.pathname}?${writeSearchParams}`
+
+      // soft write to URL without refreshing page
+      //console.log(newURL);
+      window.history.pushState(null, "", newURL)
+    }
+    
+    // run first allocation
+    //ReadFromURL()
+  </script>
+
+</html>
